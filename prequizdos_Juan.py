@@ -3,9 +3,18 @@ import pandas as pd
 import scipy.io as sanudo
 import matplotlib.pyplot as plt
 
+
+
+prm = producto_entre_2_matrices
 class Datosbro:
     def __init__(self):
         pass
+
+        def sumacumulativa(self, matrix):
+        return np.cumsum(matrix)
+
+    def promedio_matrix(self, matrix, window_size):
+        return np.convolve(matrix, np.ones(window_size)/window_size, mode='valid')
 
     def create_random_matrix(self, shape, size):
         return np.random.rand(*shape) * size
@@ -46,6 +55,34 @@ class Datosbro:
             return np.mean(matrix, axis=axis)
         elif operation == 'std':
             return np.std(matrix, axis=axis)
+
+              elif operation == 'prm':
+            return np.dot(matrix)
+
+        elif operation == 'inversa':
+            return np.linalg.inv(matrix)
+
+        elif operation == 'transpuesta':
+            return np.transpose(matrix)
+
+        elif operation == 'correlacion':
+            return np.corrcoef(matrix)
+
+        elif operation == 'media_movil':
+            return np.convolve(matrix, np.ones(window_size)/window_size, mode='valid')
+
+        elif operation == 'mediana_movil':
+            return scipy.signal.medfilt(matrix, kernel_size)
+
+        elif operation == 'desviacion':
+            return np.std(matrix)
+
+        elif operation == 'promedio':
+            return pd.Series(matrix).ewm(span=span).mean()
+
+        elif operation == 'progresion_lineal':
+            return np.polyfit(matrix[:,0], matrix[:,1], 1)
+
         else:
             raise ValueError("Operación no válida")
 
